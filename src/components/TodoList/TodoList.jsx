@@ -5,6 +5,13 @@ function TodoList({ todos, setTodos }) {
     const updatedTodoList = todos.filter((todo) => todo?.id !== todoId);
     setTodos(updatedTodoList);
   }
+  const onEditTodo = (todoId, newTodo) => {
+    const newTodoList = todos.map((todo) => {
+      if (todo?.id === todoId) todo.text = newTodo;
+      return todo;
+    });
+    setTodos(newTodoList);
+  };
   return (
     <>
       {todos &&
@@ -14,6 +21,7 @@ function TodoList({ todos, setTodos }) {
             text={todo?.text}
             isFinished={todo?.isFinished}
             deleteTodo={() => handleDeleteTodoItem(todo?.id)}
+            editTodo={(newTodo) => onEditTodo(todo?.id, newTodo)}
           />
         ))}
     </>
