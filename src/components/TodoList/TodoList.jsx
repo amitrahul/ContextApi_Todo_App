@@ -12,6 +12,13 @@ function TodoList({ todos, setTodos }) {
     });
     setTodos(newTodoList);
   };
+
+  const onFinishTodo = (id, state) => {
+    const newTodoList = todos.map((todo) => {
+      if (todo?.id === id) todo.isFinished = state;
+    });
+    setTodos(newTodoList);
+  };
   return (
     <>
       {todos &&
@@ -22,6 +29,7 @@ function TodoList({ todos, setTodos }) {
             isFinished={todo?.isFinished}
             deleteTodo={() => handleDeleteTodoItem(todo?.id)}
             editTodo={(newTodo) => onEditTodo(todo?.id, newTodo)}
+            finishTodo={(todoState) => onFinishTodo(todo?.id, todoState)}
           />
         ))}
     </>

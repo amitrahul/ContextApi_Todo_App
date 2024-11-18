@@ -1,11 +1,15 @@
 import { useState } from "react";
 
-const Todo = ({ text, isFinished, deleteTodo, editTodo }) => {
+const Todo = ({ text, isFinished, deleteTodo, editTodo, finishTodo }) => {
   const [isEditting, setIsEditting] = useState(false);
   const [todoText, setTodoText] = useState(text);
   return (
     <div>
-      <input type="checkbox" checked={isFinished} />
+      <input
+        type="checkbox"
+        checked={isFinished}
+        onClick={() => finishTodo(isFinished)}
+      />
       {(isEditting && (
         <input value={todoText} onChange={(e) => setTodoText(e.target.value)} />
       )) || <span>{todoText}</span>}
