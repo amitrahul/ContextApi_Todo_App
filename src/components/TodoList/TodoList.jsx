@@ -16,6 +16,7 @@ function TodoList({ todos, setTodos }) {
   const onFinishTodo = (id, state) => {
     const newTodoList = todos.map((todo) => {
       if (todo?.id === id) todo.isFinished = state;
+      return todo;
     });
     setTodos(newTodoList);
   };

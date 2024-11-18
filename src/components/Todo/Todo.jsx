@@ -8,7 +8,7 @@ const Todo = ({ text, isFinished, deleteTodo, editTodo, finishTodo }) => {
       <input
         type="checkbox"
         checked={isFinished}
-        onClick={() => finishTodo(isFinished)}
+        onClick={() => finishTodo(!isFinished)}
       />
       {(isEditting && (
         <input value={todoText} onChange={(e) => setTodoText(e.target.value)} />
