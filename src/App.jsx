@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import AddToDo from "./components/AddTodo/AddToDo";
 import TodoList from "./components/TodoList/TodoList";
+import TodoContext from "./context/TodoContext";
 
 const todoList = [
   {
@@ -29,16 +30,15 @@ const todoList = [
 function App() {
   const [todos, setTodos] = useState(todoList);
 
-  const handleAddTos = (obj) => {
-    setTodos((prev) => [...prev, obj]);
-  };
   return (
     <>
-      {/* for 1st way add the todo item in tods. */}
-      {/* <AddToDo setTodos={setTodos} /> */}
-      {/* for 2nd way */}
-      <AddToDo addTodos={handleAddTos} />
-      <TodoList todos={todos} setTodos={setTodos} />
+      <TodoContext.Provider value={{ todos, setTodos }}>
+        {/* for 1st way add the todo item in tods. */}
+        {/* <AddToDo setTodos={setTodos} /> */}
+        {/* for 2nd way */}
+        <AddToDo />
+        <TodoList />
+      </TodoContext.Provider>
     </>
   );
 }

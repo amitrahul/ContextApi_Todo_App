@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import TodoContext from "../../context/TodoContext";
 
 /*  for 1st way */
 // const AddToDo = ({ setTodos }) => {
 
 /* For 2nd way */
-const AddToDo = ({ addTodos }) => {
+const AddToDo = () => {
+  const { todos, setTodos } = useContext(TodoContext);
   const [todoText, setTodoText] = useState("");
 
   //   1st way to add the item in todoList
@@ -25,8 +27,12 @@ const AddToDo = ({ addTodos }) => {
       text: todoText,
       isFinished: false,
     };
-    addTodos(obj);
+    handleAddTos(obj);
     setTodoText("");
+  };
+
+  const handleAddTos = (obj) => {
+    setTodos((prev) => [...prev, obj]);
   };
   return (
     <>
