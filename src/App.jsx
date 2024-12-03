@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useReducer } from "react";
 import "./App.css";
 import AddToDo from "./components/AddTodo/AddToDo";
 import TodoList from "./components/TodoList/TodoList";
 import TodoContext from "./context/TodoContext";
+import TodoReducer from "./reducers/ToDoReducer";
 
 const todoList = [
   {
@@ -28,11 +29,18 @@ const todoList = [
 ];
 
 function App() {
-  const [todos, setTodos] = useState(todoList);
-
+  const [todos, dispatch] = useReducer(TodoReducer, todoList);
+  /**
+   * here todos is a state variable.
+   * dispatch is a function, which is used to trigger an action.
+   * here action are just task, we need to trigger a task.
+   *
+   * dispatch is taking one argument that is action object. Here we need to pass
+   * the object with type and payload property.
+   */
   return (
     <>
-      <TodoContext.Provider value={{ todos, setTodos }}>
+      <TodoContext.Provider value={{ todos, dispatch }}>
         {/* for 1st way add the todo item in tods. */}
         {/* <AddToDo setTodos={setTodos} /> */}
         {/* for 2nd way */}

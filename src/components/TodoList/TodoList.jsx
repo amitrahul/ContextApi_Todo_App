@@ -3,25 +3,50 @@ import Todo from "../Todo/Todo";
 import TodoContext from "../../context/TodoContext";
 
 function TodoList() {
-  const { todos, setTodos } = useContext(TodoContext);
+  const { todos, dispatch } = useContext(TodoContext);
   function handleDeleteTodoItem(todoId) {
-    const updatedTodoList = todos.filter((todo) => todo?.id !== todoId);
-    setTodos(updatedTodoList);
+    // const updatedTodoList = todos.filter((todo) => todo?.id !== todoId);
+    // setTodos(updatedTodoList);
+    dispatch({
+      type: "delete_todo",
+      payload: {
+        todoId: todoId,
+        /**
+         we can also write as
+         todoId,
+         beacuse here key and value pair is same.
+        *  */
+      },
+    });
   }
   const onEditTodo = (todoId, newTodo) => {
-    const newTodoList = todos.map((todo) => {
-      if (todo?.id === todoId) todo.text = newTodo;
-      return todo;
+    // const newTodoList = todos.map((todo) => {
+    //   if (todo?.id === todoId) todo.text = newTodo;
+    //   return todo;
+    // });
+    // setTodos(newTodoList);
+    dispatch({
+      type: "edit_todo",
+      payload: {
+        todoId: todoId,
+        newTodo: newTodo,
+      },
     });
-    setTodos(newTodoList);
   };
 
-  const onFinishTodo = (id, state) => {
-    const newTodoList = todos.map((todo) => {
-      if (todo?.id === id) todo.isFinished = state;
-      return todo;
+  const onFinishTodo = (id, doneState) => {
+    // const newTodoList = todos.map((todo) => {
+    //   if (todo?.id === id) todo.isFinished = state;
+    //   return todo;
+    // });
+    // setTodos(newTodoList);
+    dispatch({
+      type: "finish_todo",
+      payload: {
+        id,
+        doneState,
+      },
     });
-    setTodos(newTodoList);
   };
   return (
     <>

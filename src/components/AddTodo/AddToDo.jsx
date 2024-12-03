@@ -6,7 +6,7 @@ import TodoContext from "../../context/TodoContext";
 
 /* For 2nd way */
 const AddToDo = () => {
-  const { todos, setTodos } = useContext(TodoContext);
+  const { todos, dispatch } = useContext(TodoContext);
   const [todoText, setTodoText] = useState("");
 
   //   1st way to add the item in todoList
@@ -21,18 +21,28 @@ const AddToDo = () => {
   //   };
 
   //  2nd way
-  const handleAddNewToDoItem = () => {
-    const obj = {
-      id: Math.floor(Math.random() * 100 + 1),
-      text: todoText,
-      isFinished: false,
-    };
-    handleAddTos(obj);
-    setTodoText("");
-  };
+  // const handleAddNewToDoItem = () => {
+  //   const obj = {
+  //     id: Math.floor(Math.random() * 100 + 1),
+  //     text: todoText,
+  //     isFinished: false,
+  //   };
+  //   handleAddTos(obj);
+  //   setTodoText("");
+  // };
 
-  const handleAddTos = (obj) => {
-    setTodos((prev) => [...prev, obj]);
+  // const handleAddTos = (obj) => {
+  //   setTodos((prev) => [...prev, obj]);
+  // };
+
+  const handleAddNewToDoItem = (todoText) => {
+    dispatch({
+      type: "add_todo",
+      payload: {
+        todoText: todoText,
+      },
+    });
+    setTodoText("");
   };
   return (
     <>
@@ -41,7 +51,7 @@ const AddToDo = () => {
         value={todoText}
         onChange={(e) => setTodoText(e.target.value)}
       />
-      <button onClick={handleAddNewToDoItem}>Submit</button>
+      <button onClick={() => handleAddNewToDoItem(todoText)}>Submit</button>
     </>
   );
 };
